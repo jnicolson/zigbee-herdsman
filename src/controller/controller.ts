@@ -269,10 +269,13 @@ class Controller extends events.EventEmitter {
     }
 
     public async stop(): Promise<void> {
+        console.log('\n\nStoppping point 1');
         this.stopping = true;
+        console.log('\n\nStoppping point 2');
         this.databaseSave();
 
         // Unregister adapter events
+        console.log('\n\nStoppping point 3');
         this.adapter.removeAllListeners(AdapterEvents.Events.deviceJoined);
         this.adapter.removeAllListeners(AdapterEvents.Events.zclData);
         this.adapter.removeAllListeners(AdapterEvents.Events.rawData);
@@ -281,12 +284,16 @@ class Controller extends events.EventEmitter {
         this.adapter.removeAllListeners(AdapterEvents.Events.deviceLeave);
 
         try {
+            console.log('\n\nStoppping point 4');
             await this.permitJoinInternal(false, 'manual');
         } catch (e) {}
 
+        console.log('\n\nStoppping point 5');
         clearInterval(this.backupTimer);
         clearInterval(this.databaseSaveTimer);
+        console.log('\n\nStoppping point 6');
         await this.backup();
+        console.log('\n\nStoppping point 7');
         await this.adapter.stop();
     }
 
