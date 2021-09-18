@@ -149,13 +149,18 @@ class Znp extends events.EventEmitter {
                         this.serialPort.close();
                     }
                 } else {
+                    console.log('start point 1');
                     debug.log('Serialport opened');
+                    console.log('start point 2');
                     await this.skipBootloader();
+                    console.log('start point 3');
                     this.serialPort.once('close', this.onPortClose);
                     this.serialPort.once('error', (error) => {
                         debug.error(`Serialport error: ${error}`);
                     });
+                    console.log('start point 4');
                     this.initialized = true;
+                    console.log('start point 5');
                     resolve();
                 }
             });
@@ -205,22 +210,31 @@ class Znp extends events.EventEmitter {
 
     private async skipBootloader(): Promise<void> {
         // Skip bootloader on some CC2652 devices (e.g. zzh-p)
+        console.log('skip point 1');
         if (this.serialPort) {
+            console.log('skip point 2');
             await this.setSerialPortOptions({dtr: false, rts: false});
             await Wait(150);
+            console.log('skip point 3');
             await this.setSerialPortOptions({dtr: false, rts: true});
             await Wait(150);
+            console.log('skip point 4');
             await this.setSerialPortOptions({dtr: false, rts: false});
             await Wait(150);
+            console.log('skip point 5');
         }
+
+        console.log('skip point 6');
 
         // Skip bootloader on CC2530/CC2531
         // Send magic byte: https://github.com/Koenkk/zigbee2mqtt/issues/1343 to bootloader
         // and give ZNP 1 second to start.
         const buffer = Buffer.from([0xef]);
+        console.log('skip point 7');
         debug.log('Writing skip bootloader payload');
         this.unpiWriter.writeBuffer(buffer);
         await Wait(1000);
+        console.log('skip point 8');
     }
 
     private async setSerialPortOptions(options: {dtr?: boolean; rts?: boolean}): Promise<void> {
