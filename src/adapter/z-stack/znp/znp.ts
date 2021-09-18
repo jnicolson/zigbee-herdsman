@@ -211,18 +211,18 @@ class Znp extends events.EventEmitter {
     private async skipBootloader(): Promise<void> {
         // Skip bootloader on some CC2652 devices (e.g. zzh-p)
         console.log('skip point 1');
-        if (this.serialPort) {
-            console.log('skip point 2');
-            await this.setSerialPortOptions({dtr: false, rts: false});
-            await Wait(150);
-            console.log('skip point 3');
-            await this.setSerialPortOptions({dtr: false, rts: true});
-            await Wait(150);
-            console.log('skip point 4');
-            await this.setSerialPortOptions({dtr: false, rts: false});
-            await Wait(150);
-            console.log('skip point 5');
-        }
+        // if (this.serialPort) {
+        //     console.log('skip point 2');
+        //     await this.setSerialPortOptions({dtr: false, rts: false});
+        //     await Wait(150);
+        //     console.log('skip point 3');
+        //     await this.setSerialPortOptions({dtr: false, rts: true});
+        //     await Wait(150);
+        //     console.log('skip point 4');
+        //     await this.setSerialPortOptions({dtr: false, rts: false});
+        //     await Wait(150);
+        //     console.log('skip point 5');
+        // }
 
         console.log('skip point 6');
 
